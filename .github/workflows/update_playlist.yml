@@ -9,9 +9,9 @@ jobs:
   update-playlist:
     runs-on: ubuntu-latest
     
-    # 🚀 Uses official Docker image: Pre-installs Chromium & System Deps (Saves ~3 mins)
+    # 🚀 FIX: Updated to v1.61.0-jammy to match the latest Playwright Python package
     container:
-      image: mcr.microsoft.com/playwright/python:v1.45.0-jammy
+      image: mcr.microsoft.com/playwright/python:v1.61.0-jammy
 
     steps:
       - name: Checkout repository
@@ -19,9 +19,9 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          # 🛠️ FIX: We must explicitly install the 'playwright' Python library.
-          # The Docker image only has the browsers, not the Python bindings.
-          pip install playwright beautifulsoup4 aiohttp
+          # Install ONLY the missing libraries. 
+          # Playwright and its browsers are already pre-installed in this Docker image!
+          pip install beautifulsoup4 aiohttp
 
       - name: Execute Secure Memory Wrapper
         env:
