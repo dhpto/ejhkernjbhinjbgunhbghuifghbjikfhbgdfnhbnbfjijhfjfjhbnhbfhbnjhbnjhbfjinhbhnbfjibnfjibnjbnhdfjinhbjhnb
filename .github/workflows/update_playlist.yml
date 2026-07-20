@@ -2,27 +2,28 @@ name: Update M3U8 Playlist
 
 on:
   schedule:
-    - cron: '0 * * * *' # Runs every hour
-  workflow_dispatch: # Allows manual triggering
+    - cron: '0 * * * *' # Runs every hour at minute 0
+  workflow_dispatch: # Allows you to trigger it manually from the Actions tab
 
 jobs:
   update-playlist:
     runs-on: ubuntu-latest
-    
-    # 🚀 CRITICAL: This official Docker image has Python, Playwright, and Chromium pre-installed.
-    # This eliminates the need to slowly install browsers on every run.
-    container:
-      image: mcr.microsoft.com/playwright/python:v1.45.0-jammy
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install missing Python packages
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Python dependencies & Browser
         run: |
-          # ⚠️ DO NOT run 'pip install playwright' here. 
-          # The Docker image already has it. We ONLY install the libraries your script imports.
-          pip install beautifulsoup4 aiohttp
+          python -m pip install --upgrade pip
+          # Explicitly install all required libraries
+          pip install playwright beautifulsoup4 aiohttp
+          # Install the Chromium browser that Playwright needs to run
+          playwright install chromium
 
       - name: Execute Secure Memory Wrapper
         env:
@@ -32,11 +33,9 @@ jobs:
 
       - name: Commit and push if changed
         run: |
-          # Fix git ownership warning that happens in Docker containers
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
           git add playlist.m3u
+          
           # Only commit if there are actual changes to the file
           git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update validated playlist.m3u" && git push)
