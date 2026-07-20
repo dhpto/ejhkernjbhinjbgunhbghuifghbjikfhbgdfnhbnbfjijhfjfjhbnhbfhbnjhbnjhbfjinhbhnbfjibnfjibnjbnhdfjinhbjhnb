@@ -30,17 +30,12 @@ jobs:
           SECURE_DECRYPT_CODE: ${{ secrets.SECURE_DECRYPT_CODE }}
         run: python main.py
 
-      - name: Push to Secret Gist
+      - name: Commit and Push to Repository
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Clones your target Gist profile link to deposit the data sheet
-          git clone https://${{ secrets.GIST_TOKEN }}@gist.github.com/b077716cf9afbd04e0d833cf71d20bdf.git gist_repo
-          
-          cp playlist.m3u gist_repo/
-          cd gist_repo
-          
           git add playlist.m3u
+          # The || exit 0 prevents the workflow from failing if the playlist hasn't changed
           git commit -m "Automated cricket playlist update" || exit 0
           git push
