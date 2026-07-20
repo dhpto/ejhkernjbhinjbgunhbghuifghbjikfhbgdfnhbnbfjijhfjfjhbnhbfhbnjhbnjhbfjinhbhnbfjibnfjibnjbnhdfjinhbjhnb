@@ -5,12 +5,19 @@ on:
     - cron: '0 * * * *' # Runs every hour at minute 0
   workflow_dispatch: # Allows you to trigger it manually from the Actions tab
 
+# 🛡️ CRITICAL: Grant write permissions to the GITHUB_TOKEN so it can push commits
+permissions:
+  contents: write
+
 jobs:
   update-playlist:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          # Fetch full history to ensure clean commits
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -20,9 +27,7 @@ jobs:
       - name: Install Python dependencies & Browser
         run: |
           python -m pip install --upgrade pip
-          # Explicitly install all required libraries
           pip install playwright beautifulsoup4 aiohttp
-          # Install the Chromium browser that Playwright needs to run
           playwright install chromium
 
       - name: Execute Secure Memory Wrapper
