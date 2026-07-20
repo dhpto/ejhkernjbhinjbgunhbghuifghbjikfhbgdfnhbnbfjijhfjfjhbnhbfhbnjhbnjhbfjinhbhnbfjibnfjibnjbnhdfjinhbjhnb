@@ -2,10 +2,9 @@ name: Update M3U8 Playlist
 
 on:
   schedule:
-    - cron: '*/15 * * * *' # Runs every hour at minute 0
-  workflow_dispatch: # Allows you to trigger it manually from the Actions tab
+    - cron: '*/15 * * * *'
+  workflow_dispatch: 
 
-# 🛡️ CRITICAL: Grant write permissions to the GITHUB_TOKEN so it can push commits
 permissions:
   contents: write
 
@@ -16,7 +15,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # Fetch full history to ensure clean commits
           fetch-depth: 0
 
       - name: Set up Python
@@ -32,7 +30,6 @@ jobs:
 
       - name: Execute Secure Memory Wrapper
         env:
-          # 🛡️ Injects your secret code into the environment variable main.py expects
           SECURE_DECRYPT_CODE: ${{ secrets.SECURE_DECRYPT_CODE }}
         run: python main.py
 
