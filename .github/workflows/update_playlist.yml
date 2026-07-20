@@ -2,70 +2,39 @@ name: Update M3U8 Playlist
 
 on:
   schedule:
-    - cron: '*/15 * * * *'
-  workflow_dispatch:
-
-permissions:
-  contents: write
+    - cron: '0 * * * *' # Runs every hour at minute 0
+  workflow_dispatch: # Allows you to trigger it manually from the Actions tab
 
 jobs:
-  build:
+  update-playlist:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.10'
+          cache: 'pip' # Caches dependencies to make future runs much faster
 
-      # Cache pip packages to speed up installations
-      - name: Cache pip packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      # Cache Playwright browser binaries
-      - name: Cache Playwright Browsers
-        id: playwright-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-
-
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
-          pip install playwright requests
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      # Download browsers only if they aren't cached
-      - name: Install Playwright Chromium & Deps
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: playwright install chromium --with-deps
+      - name: Install Playwright Browser & System Dependencies
+        run: |
+          playwright install chromium
+          playwright install-deps chromium # CRITICAL: Installs Ubuntu system libraries needed for Chromium
 
-      # If cached, just install necessary Linux system libraries
-      - name: Install Playwright System Deps Only
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: playwright install-deps chromium
+      - name: Run Playlist Generator
+        run: python generate_playlist.py
 
-      - name: Run Protected Playlist Generator
-        env:
-          SECURE_DECRYPT_CODE: ${{ secrets.SECURE_DECRYPT_CODE }}
-        run: python main.py
-
-      - name: Commit and Push to Repository
+      - name: Commit and push if changed
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
           git add playlist.m3u
-          # Prevents the job from breaking if the playlist hasn't changed
-          git commit -m "Automated cricket playlist update" || exit 0
-          git push origin HEAD
+          # Only commit if there are actual changes to the file
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update validated playlist.m3u" && git push)
