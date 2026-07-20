@@ -2,39 +2,35 @@ name: Update M3U8 Playlist
 
 on:
   schedule:
-    - cron: '0 * * * *' # Runs every hour at minute 0
-  workflow_dispatch: # Allows you to trigger it manually from the Actions tab
+    - cron: '0 * * * *' # Runs every hour
+  workflow_dispatch: # Allows manual triggering
 
 jobs:
   update-playlist:
     runs-on: ubuntu-latest
+    
+    # 🚀 Uses official Docker image: Zero installation time for browsers/system deps
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.45.0-jammy
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-          cache: 'pip' # Caches dependencies to make future runs much faster
-
-      - name: Install Python dependencies
+      - name: Install lightweight Python dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install beautifulsoup4 aiohttp
 
-      - name: Install Playwright Browser & System Dependencies
-        run: |
-          playwright install chromium
-          playwright install-deps chromium # CRITICAL: Installs Ubuntu system libraries needed for Chromium
-
-      - name: Run Playlist Generator
+      - name: Execute Secure Memory Wrapper
+        env:
+          # 🛡️ Injects your secret code into the environment variable main.py expects
+          SECURE_DECRYPT_CODE: ${{ secrets.SECURE_DECRYPT_CODE }}
         run: python main.py
 
       - name: Commit and push if changed
         run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add playlist.m3u
-          # Only commit if there are actual changes to the file
           git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update validated playlist.m3u" && git push)
