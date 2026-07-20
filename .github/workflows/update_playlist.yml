@@ -14,16 +14,46 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Install dependencies & Playwright
+      # Cache pip packages to speed up installations
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # Cache Playwright browser binaries
+      - name: Cache Playwright Browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+
+      - name: Install dependencies
         run: |
           pip install playwright requests
-          playwright install chromium --with-deps
+
+      # Download browsers only if they aren't cached
+      - name: Install Playwright Chromium & Deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: playwright install chromium --with-deps
+
+      # If cached, just install necessary Linux system libraries
+      - name: Install Playwright System Deps Only
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: playwright install-deps chromium
 
       - name: Run Protected Playlist Generator
         env:
@@ -36,6 +66,6 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
           git add playlist.m3u
-          # The || exit 0 prevents the workflow from failing if the playlist hasn't changed
+          # Prevents the job from breaking if the playlist hasn't changed
           git commit -m "Automated cricket playlist update" || exit 0
-          git push
+          git push origin HEAD
