@@ -1,37 +1,37 @@
 #EXTM3U
 #EXTINF:-1 tvg-logo="https://crichd.mobile/assets/channels/star1.webp" group-title="Live Cricket", Star Sports 1
 #EXTVLCOPT:http-referrer=https://executeandship.com/
-https://cdn5.zohanayaan.com:1686/hls/star1in.m3u8?md5=ezsxU3FwQQwnzTkja7EVpA&expires=1784699356
+https://cdn3.zohanayaan.com:1686/hls/star1in.m3u8?md5=F53TWBoctE2Fqc57XyhbpQ&expires=1784706656
 #EXTINF:-1 tvg-logo="https://crichd.mobile/assets/channels/starhindi.webp" group-title="Live Cricket", Star Sports 1 Hindi
 #EXTVLCOPT:http-referrer=https://executeandship.com/
-https://cdn9.zohanayaan.com:1686/hls/starhindi.m3u8?md5=_BS-xbYWlSgyO-44JP04yQ&expires=1784699356
+https://cdn9.zohanayaan.com:1686/hls/starhindi.m3u8?md5=rHNXOful6gLXE_X4kDgT_w&expires=1784706656
 #EXTINF:-1 tvg-logo="https://crichd.mobile/assets/channels/ptv.webp" group-title="Live Cricket", PTV Sports
 #EXTVLCOPT:http-referrer=https://executeandship.com/
-https://cdn1.zohanayaan.com:1686/hls/ptvpk.m3u8?md5=hzyE9CtXNY-hQM_FQLX5sg&expires=1784699357
+https://cdn9.zohanayaan.com:1686/hls/ptvpk.m3u8?md5=y_rEWk1KLH2VdTZsyuoMKw&expires=1784706657
 #EXTINF:-1 tvg-logo="https://crichd.mobile/assets/channels/willow.webp" group-title="Live Cricket", Willow HD
 #EXTVLCOPT:http-referrer=https://executeandship.com/
-https://cdn4.zohanayaan.com:1686/hls/willowusa.m3u8?md5=dGsE6CnzwXtv6PV6bzzaTw&expires=1784699358
+https://cdn8.zohanayaan.com:1686/hls/willowusa.m3u8?md5=jxKZhraKe1weqE4KxvPs9g&expires=1784706657
 #EXTINF:-1 tvg-logo="https://crichd.mobile/assets/channels/willowextra.webp" group-title="Live Cricket", Willow HD 2
 #EXTVLCOPT:http-referrer=https://executeandship.com/
-https://cdn8.zohanayaan.com:1686/hls/willowextra.m3u8?md5=99EHqqNOuBn-ojOMWwndTA&expires=1784699358
+https://cdn3.zohanayaan.com:1686/hls/willowextra.m3u8?md5=pbqFPW_gM-vq8FI9gBVZCA&expires=1784706658
 #EXTINF:-1 tvg-logo="https://crichd.mobile/assets/channels/tensp.webp" group-title="Live Cricket", Ten Sports
 #EXTVLCOPT:http-referrer=https://executeandship.com/
-https://cdn7.zohanayaan.com:1686/hls/tenspk.m3u8?md5=dAdsrz1IX3A68DLXO4YNlg&expires=1784699359
+https://cdn10.zohanayaan.com:1686/hls/tenspk.m3u8?md5=iYZmh5VMPlUTXqj7yIpy-g&expires=1784706658
 #EXTINF:-1 tvg-logo="https://crichd.mobile/assets/channels/asports.webp" group-title="Live Cricket", A Sports HD
 #EXTVLCOPT:http-referrer=https://executeandship.com/
-https://cdn4.zohanayaan.com:1686/hls/asportshd.m3u8?md5=KT_VmCYAKIGdFm-Bnwoh7w&expires=1784699360
+https://cdn8.zohanayaan.com:1686/hls/asportshd.m3u8?md5=xJmK6bstimoHPPdqPSpkKQ&expires=1784706658
 #EXTINF:-1 tvg-logo="https://crichd.mobile/assets/channels/skycric.webp" group-title="Live Cricket", Sky Sports Cricket
 #EXTVLCOPT:http-referrer=https://executeandship.com/
-https://cdn2.zohanayaan.com:1686/hls/skyscric.m3u8?md5=ZJ1vzCl11-YHjINN4venYQ&expires=1784699361
+https://cdn3.zohanayaan.com:1686/hls/skyscric.m3u8?md5=64AEkKkROelzOw0aSAT5eQ&expires=1784706659
 #EXTINF:-1 tvg-logo="https://linkchur.top/cric/img/skysme.png" group-title="Live Cricket", Sky Sports Main Event
 #EXTVLCOPT:http-referrer=https://executeandship.com/
-https://cdn1.zohanayaan.com:1686/hls/skysme.m3u8?md5=Bz6qFiYvImo6NeDoZmyjDg&expires=1784699361
+https://cdn3.zohanayaan.com:1686/hls/skysme.m3u8?md5=fLzUXhd2ikEolPvLW1tAbw&expires=1784706659
 #EXTINF:-1 tvg-logo="https://linkchur.top/cric/img/skysme.png" group-title="Live Cricket", Sky Cinema
 #EXTVLCOPT:http-referrer=https://executeandship.com/
-https://cdn1.zohanayaan.com:1686/hls/skysme.m3u8?md5=Bz6qFiYvImo6NeDoZmyjDg&expires=1784699361
+https://cdn3.zohanayaan.com:1686/hls/skysme.m3u8?md5=fLzUXhd2ikEolPvLW1tAbw&expires=1784706659
 #EXTINF:-1 tvg-logo="https://linkchur.top/cric/img/skysfor1.png" group-title="Live Cricket", Sky Sports F1
 #EXTVLCOPT:http-referrer=https://executeandship.com/
-https://cdn4.zohanayaan.com:1686/hls/skysfor1.m3u8?md5=lYtDULaYl5pzTKj4wFjPpg&expires=1784699347
+https://cdn9.zohanayaan.com:1686/hls/skysfor1.m3u8?md5=7TuaN8okHC5yjg_TJip68A&expires=1784706668
 #EXTINF:-1 tvg-logo="https://linkchur.top/cric/img/espn2.png" group-title="Live Cricket", ESPN 2
 #EXTVLCOPT:http-referrer=https://executeandship.com/
-https://cdn8.zohanayaan.com:1686/hls/espn2.m3u8?md5=1TxURHT7aEcnrZ57dO6qEQ&expires=1784699381
+https://cdn1.zohanayaan.com:1686/hls/espn2.m3u8?md5=i1CU3yOP0E9Ik7_KaN3x-Q&expires=1784706671
